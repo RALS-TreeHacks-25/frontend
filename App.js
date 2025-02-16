@@ -11,10 +11,15 @@ import { useFonts,
   Inconsolata_800ExtraBold,
   Inconsolata_900Black
 } from '@expo-google-fonts/inconsolata';
+
 // Navigation Imports
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+// Icons
+// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+// import { faCompass, faMessage, faTimeline, faComments, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 // Screen Imports
 import Landing from './Screens/Landing';

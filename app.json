@@ -16,8 +16,15 @@
             "node_modules/@expo-google-fonts/inconsolata/Inconsolata-Bold.ttf",
             "node_modules/@expo-google-fonts/inconsolata/Inconsolata-ExtraBold.ttf",
             "node_modules/@expo-google-fonts/inconsolata/Inconsolata-Black.ttf"
-          ]        }
+          ]
+        }
       ]
-    ]
+    ],
+    "android": {
+      "package": "com.anonymous.myapp"
+    },
+    "ios": {
+      "bundleIdentifier": "com.anonymous.myapp"
+    }
   }
 }
