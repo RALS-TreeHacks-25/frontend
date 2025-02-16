@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { useEffect, useState } from 'react';
 
-import { getUser, getJourneys } from '../components/FunctionCalls';
+import { getUser, getJournal, getCarousel } from '../components/FunctionCalls';
 
 import { useIsFocused } from '@react-navigation/native';
 
@@ -30,14 +30,20 @@ export default function Home({ navigation, route }) {
         console.log("userRes: ", userRes)
         setUser(userRes)
 
-        // let carouselRes = await getCarousel()
-        // setCarousel(carouselRes)
+        // Use Promise.all and map to wait for all getJournal calls to complete
+        const allJourneys = await Promise.all(
+          userRes.journals.map(async (journey) => {
+            let journeyData = await getJournal(journey)
+            console.log("journeyData: ", journeyData)
+            return journeyData
+          })
+        )
+        console.log("allJourneys: ", allJourneys.length)
+        setJourneys(allJourneys)
 
-        let journeysRes = await getJourneys(uid)
-        console.log("journeysRes: ", journeysRes)
-        setJourneys(journeysRes)
-
-        setCarousel([{question: "what was the most interesting that happened today?"}, {question: "what was the most interesting that happened today?"}, {question: "what was the most interesting that happened today?"}, {question: "what was the most interesting that happened today?"}, {question: "what was the most interesting that happened today?"}])
+        let carouselRes = await getCarousel(uid)
+        console.log("carouselRes: ", carouselRes)
+        setCarousel(carouselRes.prompts)
       }
       fetchData()
     }
@@ -62,16 +68,18 @@ export default function Home({ navigation, route }) {
               <TouchableOpacity
                 key={index}
                 style={[styles.border, {
-                  height: '75%',
+                  height: '80%',
                   width: 200,
-                  marginRight: 6,
+                  marginRight: 20,
                   padding: '1%',
                   backgroundColor: Colors.white,
                   justifyContent: 'center',
                   alignItems: 'center',
+                  borderRadius: 10,
+                  overflow: 'hidden',
                 }]}>
                 <Text style={[styles.primaryDarkText, {fontSize: 18}]}>
-                  {item.question}
+                  {item}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -109,14 +117,14 @@ export default function Home({ navigation, route }) {
                 }]}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingRight: '2%'}}>
                 {/*Generated note title + date*/}
-                <Text style={[styles.primaryDarkText, {marginTop: 0}]}>
-                    {journey.title}</Text>
+                <Text numberOfLines={1} ellipsizeMode="tail" style={[styles.primaryDarkText, {marginTop: 0, width: '70%'}]}>
+                    {journey.title.toLowerCase()}</Text>
                 <Text style={{fontSize: 16, color: Colors.secondaryDark, fontFamily: 'Inconsolata-Regular', marginTop: '0%', marginRight: '2%', textAlign: 'right'}}>
-                    Date</Text>
+                    {new Date(journey.ts).toLocaleDateString('en-US', {month: '2-digit', day: '2-digit', year: '2-digit'})}</Text>
                 </View>
 
                 {/*Note preview*/}
-                <Text style={[styles.secondaryDarkText, {marginTop: '5%', marginRight: '5%', textAlign: 'justify'}]} numberOfLines={3}>
+                <Text style={[styles.secondaryDarkText, {marginTop: '5%', marginRight: '5%', textAlign: 'justify'}]} numberOfLines={4}>
                     {journey.text}</Text>
               </TouchableOpacity>
             )

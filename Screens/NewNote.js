@@ -38,7 +38,7 @@ export default function NewNote({ navigation, route }) {
           marginTop: '10%',
           color: Colors.primaryDark,
           width: '80%',
-          height: '60%',
+          height: '65%',
           textAlignVertical: 'top',
         }}
       />
