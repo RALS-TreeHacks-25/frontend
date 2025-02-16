@@ -99,7 +99,7 @@ export default function Home({ navigation, route }) {
             marginTop: '30%',
             color: Colors.secondaryDark
           }}>
-            No journal entries yet. Start capturing your thoughts today!
+            no journal entries yet. start capturing your thoughts today!
           </Text>
         ) : (
           journeys.map((journey, index) => {

@@ -66,8 +66,8 @@ export default function PersonalInfo( {navigation, route} ) {
 
   return (
     <View style={styles.container}>
-      <Text style={{marginTop: '22%', marginLeft: '10%', fontSize: 25, fontWeight: '600', color: Colors.primary}}>Personal Info</Text>
-      <Text style={{marginTop: '2%', marginLeft: '10%', fontSize: 22, fontWeight: '400', color: Colors.secondaryDark}}>Let's get to know you</Text>
+      <Text style={{marginTop: '22%', marginLeft: '10%', fontSize: 25, fontWeight: '600', color: Colors.primary}}>personal info</Text>
+      <Text style={{marginTop: '2%', marginLeft: '10%', fontSize: 22, fontWeight: '400', color: Colors.secondaryDark}}>let's get to know you</Text>
       
       <View style={{width: '80%', marginLeft: '10%', marginTop: '20%'}}>
         <TextInput value={name} onChangeText={text => setName(text)} placeholder="Name" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}}></TextInput>
@@ -75,7 +75,7 @@ export default function PersonalInfo( {navigation, route} ) {
       </View>
 
       <View style={{width: '80%', marginLeft: '10%', marginTop: '8%'}}>
-        <TextInput value={phone} onChangeText={text => setPhone(text)} placeholder="Phone Number" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}}></TextInput>
+        <TextInput value={phone} onChangeText={text => setPhone(text)} placeholder="Phone Number" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}} keyboardType="phone-pad"></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
@@ -90,7 +90,7 @@ export default function PersonalInfo( {navigation, route} ) {
       </View>
 
       <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
-        <PurpleButton title="Next" width={'80%'} height={60} marginBottom={"30%"} onPress={() => proceed()}></PurpleButton>
+        <PurpleButton title="next" width={'80%'} height={60} marginBottom={"30%"} onPress={() => proceed()}></PurpleButton>
       </View>
 
       <DateTimePickerModal

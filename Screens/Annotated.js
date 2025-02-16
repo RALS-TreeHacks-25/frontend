@@ -7,7 +7,6 @@ import * as Colors from '../components/Colors';
 import { getJournal } from '../components/FunctionCalls';
 import RBSheet from "react-native-raw-bottom-sheet"; // Import the bottom sheet package
 import { PurpleButton } from '../components/Button';
-import * as Calendar from 'expo-calendar';
 
 export default function Annotated({ navigation, route }) {
   const { journalId } = route.params;
@@ -143,7 +142,7 @@ export default function Annotated({ navigation, route }) {
           return (
             <View style={{width: '100%', alignItems: 'center', flex: 1, justifyContent: 'space-between'}}>
               <Text style={styles.buttonText}>
-                You wrote about this in another journey- maybe you should go back and read it?
+                {currentAnnotation.content}
               </Text>
 
               <View style={styles.buttonContainer}>
@@ -174,7 +173,7 @@ export default function Annotated({ navigation, route }) {
                 height={50}
                 onPress={() => {
                   console.log("Action button pressed");
-                  createCalendarEvent(currentAnnotation);
+                  // Add action-specific logic here
                 }}
               />
             </View>
@@ -234,42 +233,6 @@ export default function Annotated({ navigation, route }) {
         {renderButton()}
       </View>
     );
-  };
-
-  // Add this function to request calendar permissions
-  const getCalendarPermission = async () => {
-    const { status } = await Calendar.requestCalendarPermissionsAsync();
-    if (status !== 'granted') {
-      alert('Calendar permission is required to schedule events');
-      return false;
-    }
-    return true;
-  };
-
-  // Add this function to create the calendar event
-  const createCalendarEvent = async (annotation) => {
-    try {
-      const hasPermission = await getCalendarPermission();
-      if (!hasPermission) return;
-
-      const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-      const defaultCalendar = calendars.find(cal => cal.isPrimary) || calendars[0];
-
-      const eventDetails = {
-        title: annotation.content.title,
-        startDate: new Date(annotation.content.startTime),
-        endDate: new Date(annotation.content.endTime),
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        calendarId: defaultCalendar.id,
-      };
-
-      const eventId = await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
-      alert('Event has been scheduled successfully!');
-      bottomSheetRef.current.close();
-    } catch (error) {
-      console.error('Failed to create calendar event:', error);
-      alert('Failed to schedule the event. Please try again.');
-    }
   };
 
   return (

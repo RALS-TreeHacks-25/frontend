@@ -32,7 +32,7 @@ export default function Login({navigation, route}) {
 
       <View style={{width: '80%', marginTop: '17%', marginLeft: '10%'}}>
         <Text style={styles.basicText}>password<Text style={{fontWeight: "bold", color: Colors.primary}}> *</Text></Text>
-        <TextInput value={password} onChangeText={text => setPassword(text)} placeholder="secure password" placeholderTextColor={Colors.darkGray} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}}></TextInput>
+        <TextInput value={password} onChangeText={text => setPassword(text)} placeholder="secure password" placeholderTextColor={Colors.darkGray} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}} secureTextEntry={true}></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
       <PurpleButton title="login" onPress={() => loginButton(email, password)} backgroundColor={Colors.primary} width={"80%"} height={60} color={"#fff"} marginTop={'40%'} marginLeft={'10%'}></PurpleButton>
