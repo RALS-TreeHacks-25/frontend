@@ -6,11 +6,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark, faChevronLeft, faHexagonNodes } from '@fortawesome/free-solid-svg-icons'
 
 import { PurpleButton } from '../components/Button'
+import { createJournal } from '../components/FunctionCalls'
 
 import * as Colors from '../components/Colors'
 
-export default function NewNote({ navigation }) {
+export default function NewNote({ navigation, route }) {
+  const { uid } = route.params;
   const [journalText, setJournalText] = useState('');
+
+  const handleAnalyze = () => {
+    createJournal(uid, journalText)
+  }
 
   return (
     <View style={styles.container}>
@@ -38,7 +44,7 @@ export default function NewNote({ navigation }) {
       />
 
       <View style={styles.buttonContainer}>
-        <PurpleButton title="analyze" width={'60%'} onPress={() => navigation.navigate('BottomTab')} icon={faHexagonNodes} />
+        <PurpleButton title="analyze" width={'60%'} onPress={() => handleAnalyze()} icon={faHexagonNodes} />
       </View>
       <StatusBar style="auto" />
     </View>
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: '10%',
+    bottom: '5%',
     width: '100%',
     alignItems: 'center',
   },
