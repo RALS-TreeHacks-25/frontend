@@ -116,6 +116,7 @@ export default function App() {
           <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Annotated" component={Annotated} />
+          <Stack.Screen name="NewNote" component={NewNote} />
         </Stack.Navigator>
       </NavigationContainer>
     </GestureHandlerRootView>

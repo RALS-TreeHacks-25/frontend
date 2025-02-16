@@ -41,9 +41,9 @@ export default function Home({ navigation, route }) {
         console.log("allJourneys: ", allJourneys.length)
         setJourneys(allJourneys)
 
-        // let carouselRes = await getCarousel(uid)
-        // console.log("carouselRes: ", carouselRes)
-        // setCarousel(carouselRes.prompts)
+        let carouselRes = await getCarousel(uid)
+        console.log("carouselRes: ", carouselRes)
+        setCarousel(carouselRes.prompts)
       }
       fetchData()
     }

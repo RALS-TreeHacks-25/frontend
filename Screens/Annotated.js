@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import * as Colors from '../components/Colors';
 import { getJournal } from '../components/FunctionCalls';
 import RBSheet from "react-native-raw-bottom-sheet"; // Import the bottom sheet package
+import { PurpleButton } from '../components/Button';
+import * as Calendar from 'expo-calendar';
 
 export default function Annotated({ navigation, route }) {
   const { journalId } = route.params;
@@ -112,6 +114,164 @@ export default function Annotated({ navigation, route }) {
     return components;
   };
 
+  const renderAnnotationDetails = () => {
+    if (!currentAnnotation) return null;
+
+    const renderButton = () => {
+      switch (currentAnnotation.type) {
+        case "connection":
+          return (
+            <View style={{width: '100%', alignItems: 'center', flex: 1, justifyContent: 'space-between'}}>
+              <Text style={styles.buttonText}>
+                You wrote about this in another journey- maybe you should go back and read it?
+              </Text>
+            <View style={styles.buttonContainer}>              
+              <PurpleButton
+                title="Check it out"
+                width="80%"
+                height={50}
+                onPress={() => {
+                  console.log("Connection button pressed");
+                  bottomSheetRef.current.close();
+                  navigation.navigate('Annotated', { journalId: currentAnnotation.journalId });
+                }}
+              />
+            </View>
+            </View>
+          );
+        case "question":
+          return (
+            <View style={{width: '100%', alignItems: 'center', flex: 1, justifyContent: 'space-between'}}>
+              <Text style={styles.buttonText}>
+                You wrote about this in another journey- maybe you should go back and read it?
+              </Text>
+
+              <View style={styles.buttonContainer}>
+
+                <PurpleButton
+                  title="Reflect"
+                  width="80%"
+                height={50}
+                onPress={() => {
+                  console.log("Connection button pressed");
+                  bottomSheetRef.current.close();
+                  navigation.navigate('NewNote', { uid: journal.user });
+                  }}
+                />
+              </View>
+            </View>
+          );
+        case "action":
+          return (
+            <View style={{width: '100%', alignItems: 'center', flex: 1, justifyContent: 'space-between'}}>
+              <Text style={styles.buttonText}>
+                Would you like to schedule {currentAnnotation.content.title} from {new Date(currentAnnotation.content.startTime).toLocaleString('en-US', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })} to {new Date(currentAnnotation.content.endTime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric' })}?
+              </Text>
+            <View style={styles.buttonContainer}>
+              <PurpleButton
+                title="Schedule"
+                width="80%"
+                height={50}
+                onPress={() => {
+                  console.log("Action button pressed");
+                  createCalendarEvent(currentAnnotation);
+                }}
+              />
+            </View>
+            </View>
+          );
+        default:
+          return null;
+      }
+    };
+
+    return (
+      <View style={styles.annotationContainer}>
+        <View style={styles.annotationContent}>
+          <View style={styles.navigationRow}>
+            <TouchableOpacity 
+              onPress={() => {
+                const currentIndex = annotations.findIndex(a => a.id === currentAnnotation.id);
+                if (currentIndex > 0) {
+                  setCurrentAnnotation(annotations[currentIndex - 1]);
+                }
+              }}
+            >
+              <FontAwesomeIcon 
+                icon={faChevronLeft} 
+                size={24}
+                color={Colors.primaryDark}
+                style={{ opacity: annotations.findIndex(a => a.id === currentAnnotation.id) === 0 ? 0.3 : 1 }}
+              />
+            </TouchableOpacity>
+
+            <Text style={styles.paginationText}>
+              {annotations.findIndex(a => a.id === currentAnnotation.id) + 1} / {annotations.length}
+            </Text>
+
+            <TouchableOpacity
+              onPress={() => {
+                const currentIndex = annotations.findIndex(a => a.id === currentAnnotation.id);
+                if (currentIndex < annotations.length - 1) {
+                  setCurrentAnnotation(annotations[currentIndex + 1]);
+                }
+              }}
+            >
+              <FontAwesomeIcon 
+                icon={faChevronRight}
+                size={24}
+                color={Colors.primaryDark}
+                style={{ opacity: annotations.findIndex(a => a.id === currentAnnotation.id) === annotations.length - 1 ? 0.3 : 1 }}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.keyPhraseText}>
+            "{currentAnnotation.keyPhrase}"
+          </Text>
+        </View>
+
+        {renderButton()}
+      </View>
+    );
+  };
+
+  // Add this function to request calendar permissions
+  const getCalendarPermission = async () => {
+    const { status } = await Calendar.requestCalendarPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Calendar permission is required to schedule events');
+      return false;
+    }
+    return true;
+  };
+
+  // Add this function to create the calendar event
+  const createCalendarEvent = async (annotation) => {
+    try {
+      const hasPermission = await getCalendarPermission();
+      if (!hasPermission) return;
+
+      const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+      const defaultCalendar = calendars.find(cal => cal.isPrimary) || calendars[0];
+
+      const eventDetails = {
+        title: annotation.content.title,
+        startDate: new Date(annotation.content.startTime),
+        endDate: new Date(annotation.content.endTime),
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        calendarId: defaultCalendar.id,
+      };
+
+      const eventId = await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
+      alert('Event has been scheduled successfully!');
+      bottomSheetRef.current.close();
+    } catch (error) {
+      console.error('Failed to create calendar event:', error);
+      alert('Failed to schedule the event. Please try again.');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -143,27 +303,30 @@ export default function Annotated({ navigation, route }) {
       {/* Bottom drawer for annotation details */}
       <RBSheet
         ref={bottomSheetRef}
-        height={300}
+        height={400}
         openDuration={250}
         closeOnDragDown={true}
         customStyles={{
+          wrapper: { backgroundColor: "transparent" }, // Disable dark overlay
           container: {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
-            padding: 16
-          }
+            padding: 16,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: -3,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3,
+            elevation: 5
+          },
         }}
       >
-        <View style={{ flex: 1 }}>
-          <Text style={styles.sheetTitle}>Annotation Details</Text>
-          {/* For now, simply display the current annotation's data */}
-          {currentAnnotation ? (
-            <Text style={styles.sheetContent}>
-              {JSON.stringify(currentAnnotation, null, 2)}
-            </Text>
-          ) : (
-            <Text>No annotation selected.</Text>
-          )}
+        <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+          {
+            renderAnnotationDetails()
+          }
         </View>
       </RBSheet>
     </View>
@@ -173,7 +336,7 @@ export default function Annotated({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.background,
   },
   header: {
     marginTop: '20%',
@@ -218,5 +381,47 @@ const styles = StyleSheet.create({
   sheetContent: {
     fontSize: 16,
     color: Colors.primaryDark,
+  },
+  annotationContainer: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+  },
+  annotationContent: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+  },
+  navigationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '80%',
+    marginBottom: 20,
+  },
+  paginationText: {
+    fontSize: 16,
+    color: Colors.primaryDark,
+    fontFamily: "Inconsolata-Regular",
+  },
+  keyPhraseText: {
+    width: '90%',
+    textAlign: 'center',
+    marginTop: '5%',
+    fontSize: 16,
+    color: Colors.primaryDark,
+    fontFamily: "Inconsolata-Regular",
+  },
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: Colors.primaryDark,
+    fontFamily: "Inconsolata-Bold",
   },
 });
