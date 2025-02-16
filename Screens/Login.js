@@ -20,23 +20,22 @@ export default function Login({navigation, route}) {
 
   return(
     <View style={styles.container}>
-      <Text style={styles.header}>Login</Text>
-      <Text style={styles.subHeader}>Welcome back.</Text>
+      <Text style={[styles.header, {marginTop: '20%'}]}>login</Text>
+      <Text style={[styles.subHeader, {marginTop: '5%'}]}>welcome back</Text>
 
 
-      <View style={{width: '80%', marginTop: '35%'}}>
-        <Text style={{fontSize: 15}}>Email<Text style={{fontWeight: "bold", color: Colors.primary}}> *</Text></Text>
-        <TextInput value={email} onChangeText={text => setEmail(text)} placeholder="example@gmail.com" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}}></TextInput>
+      <View style={{width: '80%', marginTop: '35%', marginLeft: '10%'}}>
+        <Text style={styles.basicText}>email<Text style={{fontWeight: "bold", color: Colors.primary}}> *</Text></Text>
+        <TextInput value={email} onChangeText={text => setEmail(text)} placeholder="example@gmail.com" placeholderTextColor={Colors.darkGray} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}}></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
-      <View style={{width: '80%', marginTop: '17%'}}>
-        <Text style={{fontSize: 15}}>Password<Text style={{fontWeight: "bold", color: Colors.primary}}> *</Text></Text>
-        <TextInput value={password} onChangeText={text => setPassword(text)} placeholder="secure password" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}} secureTextEntry></TextInput>
+      <View style={{width: '80%', marginTop: '17%', marginLeft: '10%'}}>
+        <Text style={styles.basicText}>password<Text style={{fontWeight: "bold", color: Colors.primary}}> *</Text></Text>
+        <TextInput value={password} onChangeText={text => setPassword(text)} placeholder="secure password" placeholderTextColor={Colors.darkGray} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}}></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
-      
-      <PurpleButton title="Login" onPress={() => loginButton(email, password)} backgroundColor={Colors.primary} width={"80%"} height={60} color={"#fff"} marginTop={'40%'}></PurpleButton>
+      <PurpleButton title="login" onPress={() => loginButton(email, password)} backgroundColor={Colors.primary} width={"80%"} height={60} color={"#fff"} marginTop={'40%'} marginLeft={'10%'}></PurpleButton>
     </View>
   )
 }
@@ -45,19 +44,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   header: {
-    fontSize: 27,
-    color: Colors.primary,
-    marginTop: '0%',
-    fontWeight: 'bold'
+    fontSize: 40,
+    textAlign: 'left',
+    fontWeight: 'bold',
+    color: Colors.purple,
+    marginLeft: '10%',
+    fontFamily: 'Inconsolata-Regular',
   },
   subHeader: {
-    fontSize: 20,
-    color: Colors.secondaryDark,
-    marginTop: '5%',
-    fontWeight: '600'
+    fontSize: 25,
+    textAlign: 'left',
+    fontWeight: 600,
+    marginLeft: '10%',
+    color: Colors.primaryDark,
+    fontFamily: 'Inconsolata-Regular',
+  },
+  basicText: {
+    fontSize: 16,
+    textAlign: 'left',
+    color: Colors.primaryDark,
+    fontFamily: 'Inconsolata-Regular',
   }
 });
