@@ -26,6 +26,9 @@ import Landing from './Screens/Landing';
 import Home from './Screens/Home';
 import Memories from './Screens/Memories';
 import Profile from './Screens/Profile';
+import PersonalInfo from './Screens/PersonalInfo';
+import Login from './Screens/Login';
+import SignUp from './Screens/SignUp';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -48,6 +51,7 @@ function BottomTab({ route }) {
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Memories" component={Memories} />
       <Tab.Screen name="Profile" component={Profile} />
+
     </Tab.Navigator>
   )
 }
@@ -72,7 +76,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Landing" component={Landing} />
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="BottomTab" component={BottomTab} />
+        <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+        <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );
