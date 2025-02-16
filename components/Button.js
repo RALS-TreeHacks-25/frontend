@@ -23,7 +23,7 @@ export const PurpleButton = ({ title, onPress, backgroundColor, color, width, he
 
 export const WhiteButton = ({ title, onPress, backgroundColor, color, width, height, marginTop, marginLeft, marginRight, marginBottom }) => {
     return (
-      <TouchableOpacity activeOpacity={0.85} style={[whiteStyles.button, { width: whiteStyles.button.width, height: whiteStyles.button.height, marginTop: marginTop, marginLeft: marginLeft, marginRight: marginRight, marginBottom: marginBottom}]} onPress={onPress}>
+      <TouchableOpacity activeOpacity={0.85} style={[whiteStyles.button, { width: width || whiteStyles.button.width, height: height || whiteStyles.button.height, marginTop: marginTop, marginLeft: marginLeft, marginRight: marginRight, marginBottom: marginBottom}]} onPress={onPress}>
         <Text style={[whiteStyles.buttonText]}>{title}</Text>
       </TouchableOpacity>
     );

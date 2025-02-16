@@ -2,7 +2,7 @@
 import { View, Text, StyleSheet, Alert, Image, ImageBackground, TextInput, ScrollView } from "react-native";
 import * as Colors from '../components/Colors'
 import { useState, useEffect } from "react";
-import { PurpleButton } from "../components/Button";
+import { WhiteButton } from "../components/Button";
 import { signUpFunction } from "../components/AuthFunctions";
 
 export default function SignUp( {navigation, route} ) {
@@ -27,30 +27,30 @@ export default function SignUp( {navigation, route} ) {
   return(
     <View style={styles.container}>
       
-      <Text style={styles.header}>sign up</Text>
-      <Text style={styles.subHeader}>let's spin up your cognition os.</Text>
+      <Text style={[styles.header, {marginTop: '20%'}]}>sign up</Text>
+      <Text style={[styles.subHeader, {marginTop: '3%', fontSize: 18}]}>let's spin up your cognition os</Text>
 
-      <View style={{width: '80%', marginLeft: '10%', marginTop: '17%'}}>
-        <Text style={{fontSize: 15}}>Email<Text style={{color: Colors.primary}}> *</Text></Text>
-        <TextInput value={email} onChangeText={text => setEmail(text)} placeholder="example@gmail.com" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}}></TextInput>
+      <View style={{width: '80%', marginLeft: '10%', marginTop: '20%'}}>
+        <Text style={styles.basicText}>email<Text style={{color: Colors.primary}}> *</Text></Text>
+        <TextInput value={email} onChangeText={text => setEmail(text)} placeholder="example@gmail.com" placeholderTextColor={Colors.darkGray} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}}></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
       <View style={{width: '80%', marginLeft: '10%', marginTop: '17%'}}>
-        <Text style={{fontSize: 15}}>Password<Text style={{color: Colors.primary}}> *</Text></Text>
-        <TextInput value={password} onChangeText={text => setPassword(text)} placeholder="secure password" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}} secureTextEntry></TextInput>
+        <Text style={styles.basicText}>password<Text style={{color: Colors.primary}}> *</Text></Text>
+        <TextInput value={password} onChangeText={text => setPassword(text)} placeholder="secure password" placeholderTextColor={Colors.darkGray} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}} secureTextEntry></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
       <View style={{width: '80%', marginLeft: '10%', marginTop: '17%'}}>
-        <Text style={{fontSize: 15}}>Confirm Password<Text style={{color: Colors.primary}}> *</Text></Text>
-        <TextInput value={passwordConfirm} onChangeText={text => setPasswordConfirm(text)} placeholder="secure password" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}} secureTextEntry></TextInput>
+        <Text style={styles.basicText}>confirm password<Text style={{color: Colors.primary}}> *</Text></Text>
+        <TextInput value={passwordConfirm} onChangeText={text => setPasswordConfirm(text)} placeholder="confirm password" placeholderTextColor={Colors.darkGray} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}} secureTextEntry></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
-      <Text style={{width: '80%', fontSize: 12, alignSelf: 'center', marginTop: '10%'}}>By signing up you agree to our <Text style={{textDecorationLine: 'underline'}}>Terms of Service</Text> and <Text style={{textDecorationLine: 'underline'}}>Privacy Policy</Text></Text>
+      <Text style={[styles.basicText, {width: '80%', fontSize: 14, alignSelf: 'center', marginTop: '15%'}]}>by signing up you agree to our <Text style={{textDecorationLine: 'underline'}}>terms of service</Text> and <Text style={{textDecorationLine: 'underline'}}>privacy policy</Text></Text>
 
-      <PurpleButton title="Sign Up" onPress={() => signUpButton(email, password)} backgroundColor={Colors.primary} width={"80%"} height={60} marginLeft={'10%'} color={"#fff"} marginTop={'20%'}></PurpleButton>
+      <WhiteButton title="sign up" onPress={() => signUpButton(email, password)} width={"80%"} height={60} marginLeft={'10%'} marginTop={'20%'}></WhiteButton>
     </View>
   )
 }
@@ -58,20 +58,28 @@ export default function SignUp( {navigation, route} ) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: '#fff',
   },
   header: {
-    fontSize: 27,
-    color: Colors.primary,
-    marginTop: '25%',
+    fontSize: 40,
+    textAlign: 'left',
+    fontWeight: 'bold',
+    color: Colors.purple,
     marginLeft: '10%',
-    fontWeight: 'bold'
+    fontFamily: 'Inconsolata-Regular',
   },
   subHeader: {
-    fontSize: 20,
-    color: Colors.secondaryDark,
-    marginTop: '5%',
+    fontSize: 25,
+    textAlign: 'left',
+    fontWeight: 600,
     marginLeft: '10%',
-    fontWeight: '600'
+    color: Colors.primaryDark,
+    fontFamily: 'Inconsolata-Regular',
+  },
+  basicText: {
+    fontSize: 16,
+    textAlign: 'left',
+    color: Colors.primaryDark,
+    fontFamily: 'Inconsolata-Regular',
   }
-})
+});
