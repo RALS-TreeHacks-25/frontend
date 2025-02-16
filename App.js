@@ -21,7 +21,7 @@ import Landing from './Screens/Landing';
 import Home from './Screens/Home';
 import Memories from './Screens/Memories';
 import Profile from './Screens/Profile';
-
+import NewNote from './Screens/NewNote';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -66,6 +66,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="NewNote" component={NewNote} />
         <Stack.Screen name="Landing" component={Landing} />
         <Stack.Screen name="BottomTab" component={BottomTab} />
       </Stack.Navigator>
