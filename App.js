@@ -29,6 +29,8 @@ import Profile from './Screens/Profile';
 import PersonalInfo from './Screens/PersonalInfo';
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
+import NewNote from './Screens/NewNote';
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -44,15 +46,26 @@ function BottomTab({ route }) {
         tabBarShowLabel: false,
         tabBarStyle: {
           paddingTop: 10,
-        }
+        },
       }}
     >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Memories" component={Memories} />
-      <Tab.Screen name="Profile" component={Profile} />
-
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        initialParams={{ uid }}
+      />
+      <Tab.Screen
+        name="Memories"
+        component={Memories}
+        initialParams={{ uid }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        initialParams={{ uid }}
+      />
     </Tab.Navigator>
-  )
+  );
 }
 
 export default function App() {
@@ -79,6 +92,7 @@ export default function App() {
         <Stack.Screen name="BottomTab" component={BottomTab} />
         <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="NewNote" component={NewNote} />
       </Stack.Navigator>
     </NavigationContainer>
   );
