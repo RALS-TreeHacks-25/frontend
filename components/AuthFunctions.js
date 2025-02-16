@@ -1,7 +1,7 @@
 import firebase from "../secrets/Firebase";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, getIdToken, getIdTokenResult } from "firebase/auth";
 
-export async function signUpFunction(email, password) {
+export async function signUp(email, password) {
   try {
     const auth = getAuth(firebase)
     const res = await createUserWithEmailAndPassword(auth, email, password)

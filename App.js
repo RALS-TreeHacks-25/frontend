@@ -26,6 +26,7 @@ import Landing from './Screens/Landing';
 import Home from './Screens/Home';
 import Memories from './Screens/Memories';
 import Profile from './Screens/Profile';
+import NewNote from './Screens/NewNote';
 import PersonalInfo from './Screens/PersonalInfo';
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
@@ -77,6 +78,7 @@ export default function App() {
         <Stack.Screen name="Landing" component={Landing} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="BottomTab" component={BottomTab} />
+        <Stack.Screen name="NewNote" component={NewNote} />
         <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
         <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
