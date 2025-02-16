@@ -11,6 +11,7 @@ import { useFonts,
   Inconsolata_800ExtraBold,
   Inconsolata_900Black
 } from '@expo-google-fonts/inconsolata';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Navigation Imports
 import { NavigationContainer } from '@react-navigation/native';
@@ -29,6 +30,7 @@ import PersonalInfo from './Screens/PersonalInfo';
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
 import NewNote from './Screens/NewNote';
+import Annotated from './Screens/Annotated';
 
 // Colors Import
 import * as Colors from './components/Colors';
@@ -105,14 +107,17 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="BottomTab" component={BottomTab} />
-        <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
-        <Stack.Screen name="Login" component={Login} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Landing" component={Landing} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="BottomTab" component={BottomTab} />
+          <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Annotated" component={Annotated} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }

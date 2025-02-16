@@ -41,9 +41,9 @@ export default function Home({ navigation, route }) {
         console.log("allJourneys: ", allJourneys.length)
         setJourneys(allJourneys)
 
-        let carouselRes = await getCarousel(uid)
-        console.log("carouselRes: ", carouselRes)
-        setCarousel(carouselRes.prompts)
+        // let carouselRes = await getCarousel(uid)
+        // console.log("carouselRes: ", carouselRes)
+        // setCarousel(carouselRes.prompts)
       }
       fetchData()
     }
@@ -104,7 +104,8 @@ export default function Home({ navigation, route }) {
         ) : (
           journeys.map((journey, index) => {
             return (
-              <TouchableOpacity 
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Annotated', { journalId: journey.id })}
                 key={index} 
                 style={[styles.border, {
                   width: '90%', 
