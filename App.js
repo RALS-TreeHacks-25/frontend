@@ -26,7 +26,7 @@ import { faCompass, faPlusCircle, faUser } from '@fortawesome/free-solid-svg-ico
 import Landing from './Screens/Landing';
 import Home from './Screens/Home';
 import Profile from './Screens/Profile';
-import PersonalInfo from './Screens/PersonalInfo';
+import Onboarding from './Screens/Onboarding';
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
 import NewNote from './Screens/NewNote';
@@ -113,7 +113,7 @@ export default function App() {
           <Stack.Screen name="Landing" component={Landing} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="BottomTab" component={BottomTab} />
-          <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+          <Stack.Screen name="Onboarding" component={Onboarding} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Annotated" component={Annotated} />
           <Stack.Screen name="NewNote" component={NewNote} />

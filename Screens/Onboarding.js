@@ -11,7 +11,7 @@ import moment from 'moment';
 
 import * as Colors from '../components/Colors';
 
-export default function PersonalInfo( {navigation, route} ) {
+export default function Onboarding( {navigation, route} ) {
 
   const { email, uid } = route.params
 
@@ -46,28 +46,10 @@ export default function PersonalInfo( {navigation, route} ) {
       Alert.alert("Error", "Something went wrong. Please try again.")
     }
   }
-//   useEffect(() => {
-//     async function getLocation() {
-//       let { status } = await Location.requestForegroundPermissionsAsync();
-//       if (status !== 'granted') {
-//         setErrorMsg('Permission to access location was denied');
-//         return;
-//       }
-
-//       let location = await Location.getCurrentPositionAsync({});
-//       //console.log(location)
-//       let decoded = await reverseGeoCode(location.coords.latitude, location.coords.longitude)
-      
-//       setCity(decoded.city + ", " + decoded.state)
-//     }
-
-//     getLocation()
-//   }, [])
 
   return (
     <View style={styles.container}>
-      <Text style={{marginTop: '22%', marginLeft: '10%', fontSize: 25, fontWeight: '600', color: Colors.primary}}>personal info</Text>
-      <Text style={{marginTop: '2%', marginLeft: '10%', fontSize: 22, fontWeight: '400', color: Colors.secondaryDark}}>let's get to know you</Text>
+      <Text style={styles.header}>personal info</Text>
       
       <View style={{width: '80%', marginLeft: '10%', marginTop: '20%'}}>
         <TextInput value={name} onChangeText={text => setName(text)} placeholder="Name" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}}></TextInput>
@@ -112,4 +94,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  header: {
+    fontSize: 40,
+    textAlign: 'left',
+    fontWeight: 'bold',
+    color: Colors.purple,
+    marginLeft: '10%',
+    fontFamily: 'Inconsolata-Regular',
+  },
+  subHeader: {
+    fontSize: 25,
+    textAlign: 'left',
+    fontWeight: 600,
+    marginLeft: '10%',
+    color: Colors.primaryDark,
+    fontFamily: 'Inconsolata-Regular',
+  },
+  basicText: {
+    fontSize: 16,
+    textAlign: 'left',
+    color: Colors.primaryDark,
+    fontFamily: 'Inconsolata-Regular',
+  }
 });
