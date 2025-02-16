@@ -2,7 +2,7 @@
 import { View, Text, StyleSheet, Alert, Image, ImageBackground, TextInput, ScrollView } from "react-native";
 import * as Colors from '../components/Colors'
 import { useState, useEffect } from "react";
-import { Button } from "../components/Button";
+import { PurpleButton } from "../components/Button";
 import { signUpFunction } from "../components/AuthFunctions";
 
 export default function SignUp( {navigation, route} ) {
@@ -11,6 +11,7 @@ export default function SignUp( {navigation, route} ) {
   const[passwordConfirm, setPasswordConfirm] = useState('')
 
   async function signUpButton() {
+    console.log(email, password, passwordConfirm)
     if (password === passwordConfirm) { 
       const res = await signUpFunction(email, password)
       if (res.success) {
@@ -49,7 +50,7 @@ export default function SignUp( {navigation, route} ) {
 
       <Text style={{width: '80%', fontSize: 12, alignSelf: 'center', marginTop: '10%'}}>By signing up you agree to our <Text style={{textDecorationLine: 'underline'}}>Terms of Service</Text> and <Text style={{textDecorationLine: 'underline'}}>Privacy Policy</Text></Text>
 
-      <Button title="Sign Up" onPress={() => signUpButton(email, password)} backgroundColor={Colors.primary} width={"80%"} height={60} marginLeft={'10%'} color={"#fff"} marginTop={'20%'}></Button>
+      <PurpleButton title="Sign Up" onPress={() => signUpButton(email, password)} backgroundColor={Colors.primary} width={"80%"} height={60} marginLeft={'10%'} color={"#fff"} marginTop={'20%'}></PurpleButton>
     </View>
   )
 }
