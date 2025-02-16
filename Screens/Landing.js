@@ -5,15 +5,15 @@ import * as Colors from '../components/Colors'
 import { PurpleButton, WhiteButton } from '../components/Button';
 import { StyleSheet, Text, View, Button, Platform } from 'react-native';
 
-export default function Landing({ navigation }) {
+export default function Landing({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title} marginTop={'45%'} marginBottom={'10%'}>hey there</Text>
       <Text style={styles.subtitle} marginBottom={'0%'}>this is [perspective],</Text>
       <Text style={styles.subtitle} marginBottom={'30%'}>your cognition copilot</Text>
 
-      <PurpleButton title="login" marginBottom={'7%'} onPress={() => navigation.navigate('login', { uid: '123' })} />
-      <WhiteButton title="sign up" marginBottom={'10%'} onPress={() => navigation.navigate('signup')} />
+      <PurpleButton title="login" marginBottom={'7%'} onPress={() => navigation.navigate('Login', { uid: '123' })} />
+      <WhiteButton title="sign up" marginBottom={'10%'} onPress={() => navigation.navigate("SignUp")} />
     </View>
   );
 }
