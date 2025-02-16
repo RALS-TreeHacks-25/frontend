@@ -1,22 +1,50 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, View, ActivityIndicator } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import * as Colors from './Colors';
 
-export const PurpleButton = ({ title, onPress, backgroundColor, color, width, height, marginTop, marginLeft, marginRight, marginBottom, icon}) => {
-  return (
-    <TouchableOpacity activeOpacity={0.85} style={[purpleStyles.button, { width: width || purpleStyles.button.width, height: height || purpleStyles.button.height, marginTop: marginTop, marginLeft: marginLeft, marginRight: marginRight, marginBottom: marginBottom}]} onPress={onPress}>
-        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-          {
-            icon
-            ?
-            <FontAwesomeIcon icon={icon} size={20} color="white" style={{marginRight: '6%'}}/>
-          :
-            null
-          }
-          <Text style={[purpleStyles.buttonText]}>{title}</Text>
-        </View>
 
+export const PurpleButton = ({ 
+  title, 
+  onPress, 
+  loading, 
+  backgroundColor, 
+  color, 
+  width, 
+  height, 
+  marginTop, 
+  marginLeft, 
+  marginRight, 
+  marginBottom, 
+  icon 
+}) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.85}
+      style={[
+        purpleStyles.button,
+        { 
+          width: width || purpleStyles.button.width, 
+          height: height || purpleStyles.button.height, 
+          marginTop,
+          marginLeft,
+          marginRight,
+          marginBottom,
+          backgroundColor: backgroundColor || purpleStyles.button.backgroundColor 
+        }
+      ]}
+      onPress={onPress}
+    >
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+        {!loading && icon ? (
+          <FontAwesomeIcon icon={icon} size={20} color="white" style={{ marginRight: '6%' }} />
+        ) : null}
+        {loading ? (
+          <ActivityIndicator size="small" color={color || 'white'} />
+        ) : (
+          <Text style={[purpleStyles.buttonText]}>{title}</Text>
+        )}
+      </View>
     </TouchableOpacity>
   );
 };

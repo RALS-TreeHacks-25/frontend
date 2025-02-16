@@ -80,9 +80,8 @@ export async function getCarousel(uid) {
     headers: myHeaders,
     redirect: 'follow'
   }
-
+  console.log('getting carousel')
   let res = await fetch(baseURL+"/usersApi/getUsersCarousel?user="+uid, requestOptions)
-
   return res.json()
 }
 
@@ -99,7 +98,6 @@ export async function createJournal(uid, text) {
     redirect: 'follow'
   }
 
-  let res = await fetch(baseURL+"/journalsApi/createJournal", requestOptions)
-
+  const res = await fetch(baseURL+"/journalsApi/createJournal", requestOptions)
   return res
 }

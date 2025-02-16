@@ -1,22 +1,43 @@
+
+
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, ActivityIndicator } from 'react-native';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faXmark, faChevronLeft, faHexagonNodes } from '@fortawesome/free-solid-svg-icons'
 
 import { PurpleButton } from '../components/Button'
-import { createJournal } from '../components/FunctionCalls'
+import { createJournal, getUser } from '../components/FunctionCalls'
 
 import * as Colors from '../components/Colors'
 
 export default function NewNote({ navigation, route }) {
   const { uid } = route.params;
   const [journalText, setJournalText] = useState('');
+  const [user, setUser] = useState({name: null, email: null, uid: null});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userRes = await getUser(uid);
+      console.log("userRes: ", userRes);
+      setUser(userRes);
+    };
+    fetchUser();
+  }, [uid]);
 
   const handleAnalyze = async () => {
-    let creationRes = await (await createJournal(uid, journalText)).json()
-    navigation.navigate('Annotated', { journalId: creationRes.id })
+    setLoading(true);
+    try {
+      let response = await createJournal(uid, journalText);
+      let creationRes = await response.json();
+      navigation.navigate('Annotated', { journalId: creationRes.id, user: user });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -45,7 +66,7 @@ export default function NewNote({ navigation, route }) {
       />
 
       <View style={styles.buttonContainer}>
-        <PurpleButton title="analyze" width={'60%'} onPress={() => handleAnalyze()} icon={faHexagonNodes} />
+          <PurpleButton loading={loading} title="analyze" width={'60%'} onPress={handleAnalyze} icon={faHexagonNodes} />
       </View>
       <StatusBar style="auto" />
     </View>
