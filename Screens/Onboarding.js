@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { PurpleButton } from '../components/Button';
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { PurpleButton, WhiteButton } from '../components/Button';
 import { useState, useEffect } from 'react';
 
 // import * as Location from 'expo-location'
@@ -13,7 +13,7 @@ import * as Colors from '../components/Colors';
 
 export default function Onboarding( {navigation, route} ) {
 
-  const { email, uid } = route.params
+  const { email, uid } = route.params;
 
   const [city, setCity] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -23,7 +23,8 @@ export default function Onboarding( {navigation, route} ) {
 
   const [name, setName] = useState(null)
   const [phone, setPhone] = useState(null)
-  const [livingLength, setLivingLength] = useState(null)
+
+  const [bio, setBio] = useState(null)
 
   async function proceed() {
     console.log("trying!")
@@ -35,6 +36,7 @@ export default function Onboarding( {navigation, route} ) {
       email: email,
       dob: dob,
       city: city,
+      bio: bio,
     }
 
     let res = await createUser(user)
@@ -49,31 +51,60 @@ export default function Onboarding( {navigation, route} ) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>personal info</Text>
-      
-      <View style={{width: '80%', marginLeft: '10%', marginTop: '20%'}}>
-        <TextInput value={name} onChangeText={text => setName(text)} placeholder="Name" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}}></TextInput>
+      {/*for scrollview container: style={{width: '100%', alignSelf: 'left', backgroundColor: Colors.background}} 
+      contentContainerStyle={{paddingBottom: 40, flexGrow: 1}}>*/}
+
+      <Text style={[styles.header, {marginTop: '15%'}]}>let's get to know you</Text>
+
+      <View style={{width: '80%', marginLeft: '10%', marginTop: '8%'}}>
+        <TextInput value={name} placeholder="name" onChangeText={text => setName(text)} placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}}></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
       <View style={{width: '80%', marginLeft: '10%', marginTop: '8%'}}>
-        <TextInput value={phone} onChangeText={text => setPhone(text)} placeholder="Phone Number" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}} keyboardType="phone-pad"></TextInput>
+        <TextInput value={phone} onChangeText={text => setPhone(text)} placeholder="phone number" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}} keyboardType="phone-pad"></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
       <View style={{width: '80%', marginLeft: '10%', marginTop: '8%'}}>
-        <TextInput value={city} placeholder="City" onChangeText={text => setCity(text)} placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}}></TextInput>
+        <TextInput value={city} placeholder="city" onChangeText={text => setCity(text)} placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}}></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
       <View style={{width: '80%', marginLeft: '10%', marginTop: '8%'}}>
-        <TextInput value={moment(dob).format("MM/DD/YYYY") == "Invalid date" ? "" : moment(dob).format("MM/DD/YYYY")} onTouchStart={() => setDatePickerVisibility(true)} placeholder="Date of Birth" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14}}></TextInput>
+        <TextInput value={moment(dob).format("MM/DD/YYYY") == "Invalid date" ? "" : moment(dob).format("MM/DD/YYYY")} onTouchStart={() => setDatePickerVisibility(true)} placeholder="date of birth" placeholderTextColor={Colors.secondaryDark} style={{width: '100%', color: Colors.primaryDark, marginTop: '5%', fontSize: 14, fontFamily: 'Inconsolata-Regular'}}></TextInput>
         <View style={{width: '100%', backgroundColor: Colors.secondaryDark, height: 1, marginTop: 5}}></View>
       </View>
 
-      <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
-        <PurpleButton title="next" width={'80%'} height={60} marginBottom={"30%"} onPress={() => proceed()}></PurpleButton>
+      <Text style={[styles.subHeader, {marginTop: '15%'}]}>what's your story?</Text>
+      <Text style={[styles.subHeader, {marginTop: '2%', fontSize: 16, color: Colors.secondaryDark}]}>tell me briefly about yourself</Text>
+      <View style={styles.container}>
+        <TextInput
+        placeholder="I am..."
+        placeholderTextColor={Colors.secondaryDark}
+        placeholderStyle={{fontFamily: 'Inconsolata-Regular'}}
+        multiline={true}
+        textAlignVertical="top"
+        autoCapitalize="none"
+        autoComplete="off"
+        autoCorrect={false}
+        onChangeText={(text) => setBio(text)}
+        scrollEnabled={false}
+        maxLength={1000}
+        style={[styles.basicText, {
+          borderWidth: 0.5,
+          borderRadius: 5,
+          borderColor: Colors.lightGray,
+          marginLeft: '10%',
+          marginTop: '3%',
+          width: '80%',
+          height: '90%',
+          textAlignVertical: 'top',
+        }]}
+      />
       </View>
+
+      <PurpleButton title="save" width={'80%'} height={60} marginLeft={'10%'} marginBottom={"7%"} marginTop={"5%"} onPress={() => proceed()}></PurpleButton>
 
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -85,7 +116,8 @@ export default function Onboarding( {navigation, route} ) {
         onCancel={() => setDatePickerVisibility(false)}
       >
       </DateTimePickerModal>
-    </View>
+
+      </View>
   );
 }
 
@@ -95,7 +127,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    fontSize: 40,
+    fontSize: 25,
     textAlign: 'left',
     fontWeight: 'bold',
     color: Colors.purple,
@@ -103,7 +135,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inconsolata-Regular',
   },
   subHeader: {
-    fontSize: 25,
+    fontSize: 20,
     textAlign: 'left',
     fontWeight: 600,
     marginLeft: '10%',

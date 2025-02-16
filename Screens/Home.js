@@ -88,7 +88,7 @@ export default function Home({ navigation, route }) {
 
         {/* Notes Section */}
         <Text style={{marginTop: '5%', marginBottom: '3%', marginLeft: '7%', fontFamily: "Inconsolata-Regular", fontSize: 24, fontWeight: 'bold', color: Colors.purple}}>
-            past journeys</Text>
+            your journeys</Text>
         {journeys.length === 0 ? (
           <Text style={{
             fontFamily: "Inconsolata-Regular",

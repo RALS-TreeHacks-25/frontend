@@ -5,6 +5,7 @@ export async function createUser(user) {
 
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json")
+  console.log(user)
 
   var requestOptions = {
     method: "POST",
@@ -13,7 +14,9 @@ export async function createUser(user) {
     redirect: 'follow'
   }
 
+
   let res =  await fetch(baseURL+"/usersApi/createUser", requestOptions)
+  console.log(res)
 
   return res
 }
