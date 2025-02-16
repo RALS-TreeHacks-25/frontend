@@ -17,19 +17,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-// Icons
-// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-// import { faCompass, faMessage, faTimeline, faComments, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+// Icons Imports
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCompass, faPlusCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 
 // Screen Imports
 import Landing from './Screens/Landing';
 import Home from './Screens/Home';
-import Memories from './Screens/Memories';
 import Profile from './Screens/Profile';
 import PersonalInfo from './Screens/PersonalInfo';
 import Login from './Screens/Login';
 import SignUp from './Screens/SignUp';
 import NewNote from './Screens/NewNote';
+
+// Colors Import
+import * as Colors from './components/Colors';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,23 +48,41 @@ function BottomTab({ route }) {
         tabBarShowLabel: false,
         tabBarStyle: {
           paddingTop: 10,
+          backgroundColor: Colors.background,
         },
+        tabBarInactiveTintColor: Colors.secondaryDark,
+        tabBarActiveTintColor: Colors.primary,
       }}
     >
       <Tab.Screen
         name="Home"
         component={Home}
         initialParams={{ uid }}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon icon={faCompass} color={color} size={size} />
+          ),
+        }}
       />
       <Tab.Screen
-        name="Memories"
-        component={Memories}
+        name="NewNote"
+        component={NewNote}
         initialParams={{ uid }}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon icon={faPlusCircle} color={color} size={size} />
+          ),
+        }}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
         initialParams={{ uid }}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesomeIcon icon={faUser} color={color} size={size} />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
@@ -92,7 +112,6 @@ export default function App() {
         <Stack.Screen name="BottomTab" component={BottomTab} />
         <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="NewNote" component={NewNote} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -51,3 +51,55 @@ export async function getJourneys(uid) {
 
   return res.json()
 }
+
+export async function getJournal(journalId) {
+  console.log(baseURL+"/journalsApi/getJournalById?journal="+journalId)
+
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json")
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: 'follow'
+  }
+
+  let res = await fetch(baseURL+"/journalsApi/getJournalById?journal="+journalId, requestOptions)
+
+  return res.json()
+}
+
+export async function getCarousel(uid) {
+  console.log(baseURL+"/usersApi/getUsersCarousel?user="+uid)
+
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json")
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: 'follow'
+  }
+
+  let res = await fetch(baseURL+"/usersApi/getUsersCarousel?user="+uid, requestOptions)
+
+  return res.json()
+}
+
+export async function createJournal(uid, text) {
+  console.log(baseURL+"/journalsApi/createJournal")
+
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json")
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({user: uid, text: text}),
+    redirect: 'follow'
+  }
+
+  let res = await fetch(baseURL+"/journalsApi/createJournal", requestOptions)
+
+  return res
+}

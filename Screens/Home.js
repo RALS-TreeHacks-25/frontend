@@ -45,11 +45,11 @@ export default function Home({ navigation, route }) {
 
   return (
       <ScrollView 
-        style={{width: '100%', alignSelf: 'center'}} 
+        style={{width: '100%', alignSelf: 'center', backgroundColor: Colors.background}} 
         contentContainerStyle={{paddingBottom: 40, flexGrow: 1}}
       >
         {/* Header */}
-        <Text style={{marginTop: '15%', marginLeft: '7%', fontFamily: "Inconsolata-Regular", fontSize: 35, fontWeight: 'bold', color: Colors.purple}}>hey {user.name?.split(' ')[0]},</Text>
+        <Text style={{marginTop: '20%', marginLeft: '7%', fontFamily: "Inconsolata-Regular", fontSize: 30, fontWeight: 'bold', color: Colors.purple}}>hey {user.name?.split(' ')[0].toLowerCase()},</Text>
         <Text style={{marginTop: '3%', marginLeft: '7%', fontFamily: "Inconsolata-Regular",fontSize: 24, color: Colors.primaryDark}}>what's on your mind?</Text>
 
         {/* Carousel Section */}
@@ -79,14 +79,16 @@ export default function Home({ navigation, route }) {
         </View>
 
         {/* Notes Section */}
-        <Text style={{marginTop: '5%', marginBottom: '3%', marginLeft: '7%', fontFamily: "Inconsolata-Regular", fontSize: 28, fontWeight: 'bold', color: Colors.purple}}>
-            your past thoughts</Text>
+        <Text style={{marginTop: '5%', marginBottom: '3%', marginLeft: '7%', fontFamily: "Inconsolata-Regular", fontSize: 24, fontWeight: 'bold', color: Colors.purple}}>
+            past journeys</Text>
         {journeys.length === 0 ? (
           <Text style={{
-            marginLeft: '7%',
-            marginTop: 10,
             fontFamily: "Inconsolata-Regular",
             fontSize: 16,
+            width: '50%',
+            alignSelf: 'center',
+            textAlign: 'center',
+            marginTop: '30%',
             color: Colors.secondaryDark
           }}>
             No journal entries yet. Start capturing your thoughts today!
