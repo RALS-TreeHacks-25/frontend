@@ -14,8 +14,9 @@ export default function NewNote({ navigation, route }) {
   const { uid } = route.params;
   const [journalText, setJournalText] = useState('');
 
-  const handleAnalyze = () => {
-    createJournal(uid, journalText)
+  const handleAnalyze = async () => {
+    let creationRes = await (await createJournal(uid, journalText)).json()
+    navigation.navigate('Annotated', { journalId: creationRes.id })
   }
 
   return (

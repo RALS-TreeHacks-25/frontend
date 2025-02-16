@@ -104,7 +104,8 @@ export default function Home({ navigation, route }) {
         ) : (
           journeys.map((journey, index) => {
             return (
-              <TouchableOpacity 
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Annotated', { journalId: journey.id })}
                 key={index} 
                 style={[styles.border, {
                   width: '90%', 
