@@ -66,7 +66,7 @@ export default function PersonalInfo( {navigation, route} ) {
 
   return (
     <View style={styles.container}>
-      <Text style={{marginTop: '22%', marginLeft: '10%', fontSize: 25, fontWeight: '600', color: Colors.primaryDark}}>Personal Info</Text>
+      <Text style={{marginTop: '22%', marginLeft: '10%', fontSize: 25, fontWeight: '600', color: Colors.primary}}>Personal Info</Text>
       <Text style={{marginTop: '2%', marginLeft: '10%', fontSize: 22, fontWeight: '400', color: Colors.secondaryDark}}>Let's get to know you</Text>
       
       <View style={{width: '80%', marginLeft: '10%', marginTop: '20%'}}>

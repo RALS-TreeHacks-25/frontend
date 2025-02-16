@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 25,
     fontWeight: 600,
-    color: Colors.secondary,
+    color: Colors.primaryDark,
     marginTop: 10,
     fontFamily: "Inconsolata-Regular",
   }
