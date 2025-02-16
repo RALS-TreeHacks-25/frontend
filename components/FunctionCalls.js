@@ -17,3 +17,37 @@ export async function createUser(user) {
 
   return res
 }
+
+export async function getUser(uid) {
+  console.log(baseURL+"/usersApi/getUser")
+
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json")
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({uid: uid}),
+    redirect: 'follow'
+  }
+
+  let res =  await fetch(baseURL+"/usersApi/getUser", requestOptions)
+
+  return res.json()
+}
+
+export async function getJourneys(uid) {
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json")
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({user: uid}),
+    redirect: 'follow'
+  }
+
+  let res =  await fetch(baseURL+"/journalsApi/getJournalsByUser", requestOptions)
+
+  return res.json()
+}

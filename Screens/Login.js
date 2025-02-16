@@ -11,6 +11,7 @@ export default function Login({navigation, route}) {
   async function loginButton() {
     let res = await login(email, password)
     if (res.success) {
+      console.log(res.uid)
       navigation.navigate("BottomTab", {uid: res.uid})
     } else {
       Alert.alert(res.message)
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     fontSize: 20,
-    color: Colors.secondary,
+    color: Colors.secondaryDark,
     marginTop: '5%',
     fontWeight: '600'
   }

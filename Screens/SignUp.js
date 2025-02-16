@@ -27,8 +27,8 @@ export default function SignUp( {navigation, route} ) {
   return(
     <View style={styles.container}>
       
-      <Text style={styles.header}>Sign Up</Text>
-      <Text style={styles.subHeader}>Let's build your community.</Text>
+      <Text style={styles.header}>sign up</Text>
+      <Text style={styles.subHeader}>let's spin up your cognition os.</Text>
 
       <View style={{width: '80%', marginLeft: '10%', marginTop: '17%'}}>
         <Text style={{fontSize: 15}}>Email<Text style={{color: Colors.primary}}> *</Text></Text>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     fontSize: 20,
-    color: Colors.secondary,
+    color: Colors.secondaryDark,
     marginTop: '5%',
     marginLeft: '10%',
     fontWeight: '600'
